@@ -5,6 +5,8 @@ import ex.boards.domain.model.BaseEntity;
 import ex.boards.domain.post.entity.Post;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,6 +38,10 @@ public class User extends BaseEntity {
     @Column(name = "password", nullable = false, length = 60) // BCrypt 길이는 60
     private String password;
 
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+
     @OneToMany(mappedBy = "creator")
     private List<Board> boardList = new ArrayList<>();
 
@@ -43,9 +49,10 @@ public class User extends BaseEntity {
     private List<Post> postList = new ArrayList<>();
 
     @Builder
-    private User(String nickname, String email, String password) {
+    private User(String nickname, String email, String password, UserRole role) {
         this.nickname = nickname;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 }
