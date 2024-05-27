@@ -2,6 +2,7 @@ package ex.boards.domain.user.entity;
 
 import ex.boards.domain.board.entity.Board;
 import ex.boards.domain.model.BaseEntity;
+import ex.boards.domain.post.entity.Post;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,6 +38,9 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "creator")
     private List<Board> boardList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "author")
+    private List<Post> postList = new ArrayList<>();
 
     @Builder
     private User(String nickname, String email, String password) {
